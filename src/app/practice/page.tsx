@@ -1,15 +1,16 @@
-import { PracticeLab } from "@/components/PracticeLab";
+import { Suspense } from "react";
+import { PracticeLabClient } from "./PracticeLabClient";
 
-export default async function PracticePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ domain?: string; challenge?: string }>;
-}) {
-  const params = await searchParams;
+export default function PracticePage() {
   return (
-    <PracticeLab
-      initialDomain={params.domain ?? "sales"}
-      initialChallengeId={params.challenge}
-    />
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-6xl px-5 py-10 text-sm text-[var(--ink-muted)]">
+          Loading lab…
+        </div>
+      }
+    >
+      <PracticeLabClient />
+    </Suspense>
   );
 }
